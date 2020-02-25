@@ -1,0 +1,72 @@
+import React, { Component } from 'react';
+import axios from 'axios'
+
+class Auth extends Component {
+  constructor() {
+    super()
+    this.state = {
+      username: '',
+      password: ''
+    }
+  }
+
+  handleInput = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleRegister = () => {
+    const { username, password } = this.state
+
+    axios.post(`/api/register`, { username, password })
+      .then(res => {
+        this.props.history.push('/dashboard')
+      })
+      .catch(err => console.log(err))
+  }
+
+  handleLogin = () => {
+    const { username, password } = this.state
+
+    axios.post(`/api/login`,
+      {
+        username: username,
+        password: password
+      })
+      .then(res => {
+        this.props.history.push(`/dashboard`)
+      })
+      .catch(err => console.log(err))
+
+  }
+
+  render() {
+    console.log(this.state.username)
+    return (
+      <div>
+        <input
+          placeholder='Username'
+          name='username'
+          onChange={this.handleInput}
+        />
+        <input
+          placeholder='Password'
+          name='password'
+          type='password'
+          onChange={this.handleInput}
+        />
+        <button
+          onClick={this.handleLogin}
+        >
+          Login</button>
+        <button
+          onClick={this.handleRegister}
+        >
+          Register</button>
+      </div>
+    );
+  }
+}
+
+export default Auth;
