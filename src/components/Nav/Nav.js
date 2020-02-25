@@ -18,6 +18,7 @@ class Nav extends Component {
 
 const mapStateToProps = reduxState => {
     const { username, profile_pic } = reduxState
+    console.log(reduxState)
     return {
         username,
         profile_pic
