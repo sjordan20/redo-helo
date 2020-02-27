@@ -4,6 +4,7 @@ const massive = require('massive')
 const session = require('express-session')
 
 const authCtrl = require(`./controllers/authController`)
+const postCtrl = require(`./controllers/postController`)
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
 
@@ -34,3 +35,11 @@ app.listen(SERVER_PORT, () => console.log(`||----Listening on ${SERVER_PORT}----
 
 app.post(`/api/register`, authCtrl.register)
 app.post(`/api/login`, authCtrl.login)
+
+// post endpoints
+
+// app.get(`/api/posts/:id`, postCtrl.searchTitle)
+app.get(`/api/posts`, postCtrl.getPost)
+app.post(`/api/posts/:id`, postCtrl.addPost)
+app.put(`/api/posts/:id`, postCtrl.editPost)
+app.delete(`/api/posts/:post_id`, postCtrl.deletePost)
